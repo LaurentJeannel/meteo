@@ -19,22 +19,23 @@ function meteodujour(url,scrapinfo0){
 
 	url=url.replace(/ sur/gi,'') ;url=url.replace(/ à/gi,'') ; url=url.replace(/ /gi,'+')
 	
-	request({ uri : 'https://www.bing.com/search?q='+encodeURI(url) }, function(error, response, html){
+	request({ uri : 'https://www.google.com/search?q='+encodeURI(url) }, function(error, response, html){
 			 var $ = cheerio.load(html); var resultmeteo=''
 
-var currTemp=$('.wtr_currTemp').text()
+var currTemp=$('div.kvKEAb:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1)').text()
 var hitghtemp=$('div.wtr_high:nth-child(1)').text()
 var lowtemp=$('div.wtr_low:nth-child(2)').text()
-var currPreci=$('.wtr_currPerci').text()
+var currPreci=$('div.kvKEAb:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1)').text()
 var currentwind=$('.wtr_currWind').text()
 var currhumidite=$('.wtr_currHumi').text()
 var tendance=$('.wtr_caption').text()
-var ville=$('.wtr_locTitle').text()
+var ville=$('span.tAd8D').text()
 console.log(currTemp+hitghtemp+lowtemp+currPreci+currentwind+currhumidite+tendance)
 								
-valeurduspeak="température actuelle de "+currTemp+" degrés ; "+" d'amplitude de "+lowtemp+" à "+hitghtemp+ "; risque de "+currPreci
-valeurduspeak=valeurduspeak+" ; "+currentwind+ " ; prévision "+tendance+" ; "
-
+//valeurduspeak="température actuelle de "+currTemp+" degrés ; "+" d'amplitude de "+lowtemp+" à "+hitghtemp+ "; risque de "+currPreci
+//valeurduspeak=valeurduspeak+" ; "+currentwind+ " ; prévision "+tendance+" ; "
+valeurduspeak="température actuelle de "+currTemp+" degrés ; tendance "+currPreci
+valeurduspeak=valeurduspeak
 	if(valeurduspeak.search(new RegExp('Ensoleillé',"gi"))>-1){//météo
 		valeurduspeak=valeurduspeak+"|pense à la crème solaire|pas de pluie pour l'instant|un peux de soleil fait du bien";
 	}//fin if nuageux
@@ -111,7 +112,10 @@ console.log("Code postal la ville : "+codeville)
 			console.log(alertetexte2)
 			valeurduspeak=valeurduspeak.replace('km/h',' Kilomètre heure ')
 valeurduspeak=alertetexte1+ " ; "+alertetexte2+" ; "+valeurduspeak
-JarvisIASpeech("voici mes prévision ; "+valeurduspeak)			
+//valeurduspeak=valeurduspeak.replace(new RegExp("[^0-9a-zA-Zéâœèî,ôûë.àçù]", 'ig')," ")
+//valeurduspeak=valeurduspeak.replace(new RegExp("  ", 'ig')," ");valeurduspeak=valeurduspeak.replace(new RegExp("  ", 'ig')," ")
+JarvisIASpeech("voici mes prévision ; "+valeurduspeak)	
+console.log(valeurduspeak.length)		
 		})
 
 })
