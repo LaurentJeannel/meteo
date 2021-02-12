@@ -19,27 +19,22 @@ function meteodujour(url,scrapinfo0){
 
 	url=url.replace(/ sur/gi,'') ;url=url.replace(/ à/gi,'') ; url=url.replace(/ /gi,'+')
 	
-	request({ 'uri' : 'https://www.google.com/search?q='+url  }, function(error, response, html){
-
+	request({ uri : 'https://www.google.com/search?q='+encodeURI(url) }, function(error, response, html){
 			 var $ = cheerio.load(html); var resultmeteo=''
 
 var currTemp=$('div.kvKEAb:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1)').text()
-
 var hitghtemp=$('div.wtr_high:nth-child(1)').text()
 var lowtemp=$('div.wtr_low:nth-child(2)').text()
 var currPreci=$('div.kvKEAb:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1)').text()
 var currentwind=$('.wtr_currWind').text()
 var currhumidite=$('.wtr_currHumi').text()
 var tendance=$('.wtr_caption').text()
-//var ville=$('span.tAd8D').text()
-var ville=$('#main > div:nth-child(4) > div:nth-child(1) > div:nth-child(1) > span:nth-child(1) > span:nth-child(1)').text()
-//console.log("dddddddddd"+currTemp+"ggggggggg"+hitghtemp+"fffffffffff"+lowtemp+"dddddd"+"oooooooo"+currPreci+"qqqqqqqq"+currentwind+"ppp"+currhumidite+"aaaaa"+tendance)
-console.log(currTemp+"ddddddddddddddddddddddddddddd   "+currPreci+"9999999999999999999999999999999999")
-//console.log($('#main > div:nth-child(4) > div:nth-child(1) > div:nth-child(1) > span:nth-child(1) > span:nth-child(1)').text()+"  ville"	)							
+var ville=$('span.tAd8D').text()
+console.log(currTemp+hitghtemp+lowtemp+currPreci+currentwind+currhumidite+tendance)
+								
 //valeurduspeak="température actuelle de "+currTemp+" degrés ; "+" d'amplitude de "+lowtemp+" à "+hitghtemp+ "; risque de "+currPreci
 //valeurduspeak=valeurduspeak+" ; "+currentwind+ " ; prévision "+tendance+" ; "
-///valeurduspeak="température actuelle de "+currTemp+" degrés ; tendance "+currPreci
-valeurduspeak=currTemp+" degrés ; tendance "+currPreci
+valeurduspeak="température actuelle de "+currTemp+" degrés ; tendance "+currPreci
 valeurduspeak=valeurduspeak
 	if(valeurduspeak.search(new RegExp('Ensoleillé',"gi"))>-1){//météo
 		valeurduspeak=valeurduspeak+"|pense à la crème solaire|pas de pluie pour l'instant|un peux de soleil fait du bien";
