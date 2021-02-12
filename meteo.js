@@ -19,7 +19,7 @@ function meteodujour(url,scrapinfo0){
 
 	url=url.replace(/ sur/gi,'') ;url=url.replace(/ à/gi,'') ; url=url.replace(/ /gi,'+')
 	
-	request({ 'uri' : 'https://www.google.com/search?q='+url  }, function(error, response, html){
+	request({ 'uri' : 'https://www.google.com/search?q='+url, 'headers':{'Accept-Charset': 'windows-1252'},'encoding':'binary'  }, function(error, response, html){
 
 			 var $ = cheerio.load(html); var resultmeteo=''
 
