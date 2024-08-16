@@ -1,9 +1,9 @@
-<<<<<<< HEAD
+
 exports.action = function(data){var request = require('request');var cheerio = require('cheerio');
 //request({'uri' :'https://meteo.orange.fr/vigilance-france/'},function(error, response, html){
-=======
+
  exports.action = function(data){
->>>>>>> 0ccc9accf22a834156f9347d6d8c820eba8d8f11
+
 
 try{
 var request = require('request');var cheerio = require('cheerio');
@@ -36,8 +36,7 @@ console.log  ($('div.kvKEAb:nth-child(1) > div:nth-child(2) > div:nth-child(1) >
 
 //if(currTemp4!==undefined){var valeurduspeak=currTemp4}
 //if(currTemp5!==undefined){var valeurduspeak=currTemp5}
-=======
->>>>>>> 0ccc9accf22a834156f9347d6d8c820eba8d8f11
+
 var valeurduspeak=currTemp4+" "+currTemp5
 
 	if(valeurduspeak.search(new RegExp('Ensoleillé',"gi"))>-1){//météo
@@ -57,15 +56,15 @@ var valeurduspeak=currTemp4+" "+currTemp5
 		valeurduspeak=valeurduspeak+"|prépare la luge",'sort les skis';
 	}//fin if nuageux
 
-<<<<<<< HEAD
+
 //if(currTemp4==''){JarvisIASpeech("pas de météo, désolez, essai autrement")
 //	return false
 //}
-=======
+
 if(currTemp4==''){JarvisIASpeech("pas de météo, désolez, essai autrement")
 	return false
 }
->>>>>>> 0ccc9accf22a834156f9347d6d8c820eba8d8f11
+
 									
 JarvisIASpeech("voici mes prévision ; "+valeurduspeak)
 return
